@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Databases / Docker storage
+data/
+logs/
+plugins/
+qdrant_storage/
+
+# Node / Frontend
+node_modules/
+dist/
+
+# IDEs & System
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Google OAuth Credentials & Tokens (sensitive)
+credentials.json
+token.json
+backend/credentials.json
+backend/token.json
