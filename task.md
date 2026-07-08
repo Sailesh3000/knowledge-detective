@@ -1,0 +1,41 @@
+# Tasks - Knowledge Detective Implementation
+
+- `[x]` **Step 1**: `docker-compose.yml` + FastAPI skeleton + config
+  - `[x]` Create `docker-compose.yml` for Neo4j & Qdrant
+  - `[x]` Initialize `backend/` folder and basic config
+  - `[x]` Set up `.env` and `.env.example`
+- `[/]` **Step 2**: All 4 connectors (GitHub, Gmail, Calendar, Local)
+  - `[x]` Implement Local folder connector
+  - `[ ]` Implement GitHub connector (PyGithub)
+  - `[ ]` Implement Gmail API connector (with OAuth)
+  - `[ ]` Implement Google Calendar API connector (with OAuth)
+- `[ ]` **Step 3**: Generate synthetic test data + create GitHub repo
+  - `[ ]` Write synthetic data generator (`generate_test_data.py`)
+  - `[ ]` Create GitHub repo for the project and push initial codebase/issues/PRs
+- `[ ]` **Step 4**: Ingestion pipeline (chunk → embed → extract → graph) + Watcher
+  - `[ ]` Implement text chunker
+  - `[ ]` Implement embedder (sentence-transformers CPU)
+  - `[ ]` Implement LLM metadata extractor (qwen3:8b)
+  - `[ ]` Implement Neo4j graph builder
+  - `[ ]` Implement background local file watcher daemon (using `watchdog` library)
+- `[ ]` **Step 5**: Ingest test data, verify in Neo4j/Qdrant
+  - `[ ]` Run ingestion pipeline over synthetic test data
+  - `[ ]` Verify node/edge count in Neo4j and vector count in Qdrant
+- `[ ]` **Step 6**: Query engine (plan → retrieve → verify → synthesize)
+  - `[ ]` Implement query planner
+  - `[ ]` Implement hybrid retriever (Neo4j Cypher + Qdrant vectors)
+  - `[ ]` Implement verifier (anti-hallucination checks)
+  - `[ ]` Implement synthesizer
+- `[ ]` **Step 7**: API routes (query, timeline, graph)
+  - `[ ]` Create POST `/api/query` route
+  - `[ ]` Create GET `/api/timeline/{topic}` route
+  - `[ ]` Create GET `/api/graph/{entity}` route
+- `[ ]` **Step 8**: React frontend (Chat + Timeline + Graph Viz)
+  - `[ ]` Scaffold React + Vite application
+  - `[ ]` Implement Chat Panel with streaming answers & citations
+  - `[ ]` Implement Decision Timeline View
+  - `[ ]` Implement Knowledge Graph Visualization
+- `[ ]` **Step 9**: Polish, testing, demo prep
+  - `[ ]` Write automated smoke/query tests
+  - `[ ]` Perform manual scenario testing
+  - `[ ]` Prepare/verify pre-cached query responses
