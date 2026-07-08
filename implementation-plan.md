@@ -283,6 +283,7 @@ knowledge-detective/
 3. LLM metadata extraction (qwen3:8b extracts entities, topics, people)
 4. Graph builder (Neo4j nodes + edges + identity resolution)
 5. Run bulk ingestion on test data, verify in Neo4j Browser + Qdrant Dashboard
+6. Background local file watcher daemon (`watchdog` listening to changes and incrementally updating Qdrant/Neo4j)
 
 ### Phase 3: Query Engine + Reasoning Agent
 **Goal**: Ask a question → get a cited answer.
@@ -352,10 +353,10 @@ python -m scripts.query_test
 | 1 | `docker-compose.yml` + FastAPI skeleton + config | ~45 min |
 | 2 | All 4 connectors (GitHub, Gmail, Calendar, Local) | ~3 hours |
 | 3 | Generate synthetic test data + create GitHub repo | ~1 hour |
-| 4 | Ingestion pipeline (chunk → embed → extract → graph) | ~2.5 hours |
+| 4 | Ingestion pipeline (chunk → embed → extract → graph) + Watcher | ~3 hours |
 | 5 | Ingest test data, verify in Neo4j/Qdrant | ~30 min |
 | 6 | Query engine (plan → retrieve → verify → synthesize) | ~3 hours |
 | 7 | API routes (query, timeline, graph) | ~1 hour |
 | 8 | React frontend (Chat + Timeline + Graph Viz) | ~3-4 hours |
 | 9 | Polish, testing, demo prep | ~1 hour |
-| | **Total** | **~16 hours** |
+| | **Total** | **~16.5 hours** |
