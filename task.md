@@ -41,8 +41,15 @@
   - `[ ]` Implement incremental Calendar sync poller with attendee/calendar filters
   - `[ ]` Implement GitHub webhook endpoint (`POST /api/webhooks/github`) and polling fallback
   - `[ ]` Setup `APScheduler` in FastAPI startup events to trigger incremental jobs
-- `[ ]` **Step 10**: Polish, testing, demo prep
+- `[ ]` **Step 10**: Multi-Project Partitioning & Selector
+  - `[ ]` Implement `projects.json` configuration parser in backend config
+  - `[ ]` Update Neo4j graph builder and Qdrant embedder to tag nodes and vectors with `project_id`
+  - `[ ]` Apply `project_id` filtering constraints to RAG query engine retrieval
+  - `[ ]` Update FastAPI routes (`/api/query`, `/api/timeline`, `/api/graph`) to accept and enforce `project_id`
+  - `[ ]` Implement a Project Selector dropdown in React frontend header
+- `[ ]` **Step 11**: Polish, testing, demo prep
   - `[ ]` Write automated smoke/query tests
   - `[ ]` Perform manual scenario testing
   - `[ ]` Prepare/verify pre-cached query responses
+
 
