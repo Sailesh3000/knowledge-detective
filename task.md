@@ -26,10 +26,10 @@
   - `[x]` Implement hybrid retriever (Neo4j Cypher + Qdrant vectors)
   - `[x]` Implement verifier (anti-hallucination checks)
   - `[x]` Implement synthesizer
-- `[ ]` **Step 7**: API routes (query, timeline, graph)
-  - `[ ]` Create POST `/api/query` route
-  - `[ ]` Create GET `/api/timeline/{topic}` route
-  - `[ ]` Create GET `/api/graph/{entity}` route
+- `[x]` **Step 7**: API routes (query, timeline, graph)
+  - `[x]` Create POST `/api/query` route
+  - `[x]` Create GET `/api/timeline/{topic}` route
+  - `[x]` Create GET `/api/graph/{entity}` route
 - `[ ]` **Step 8**: React frontend (Chat + Timeline + Graph Viz)
   - `[ ]` Scaffold React + Vite application
   - `[ ]` Implement Chat Panel with streaming answers & citations

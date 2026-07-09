@@ -29,12 +29,14 @@ def health_check():
         }
     }
 
-# We'll register the routers here as they are implemented.
-# from app.api import ingest, query, timeline, graph
-# app.include_router(ingest.router, prefix="/api/ingest", tags=["Ingestion"])
-# app.include_router(query.router, prefix="/api", tags=["Query"])
-# app.include_router(timeline.router, prefix="/api", tags=["Timeline"])
-# app.include_router(graph.router, prefix="/api", tags=["Graph"])
+# Register API Routers
+from app.api.query import router as query_router
+from app.api.timeline import router as timeline_router
+from app.api.graph import router as graph_router
+
+app.include_router(query_router, prefix="/api", tags=["Query"])
+app.include_router(timeline_router, prefix="/api", tags=["Timeline"])
+app.include_router(graph_router, prefix="/api", tags=["Graph"])
 
 if __name__ == "__main__":
     import uvicorn
