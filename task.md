@@ -21,11 +21,11 @@
 - `[x]` **Step 5**: Ingest test data, verify in Neo4j/Qdrant
   - `[x]` Run ingestion pipeline over synthetic test data
   - `[x]` Verify node/edge count in Neo4j and vector count in Qdrant
-- `[/]` **Step 6**: Query engine (plan → retrieve → verify → synthesize)
-  - `[/]` Implement query planner
-  - `[/]` Implement hybrid retriever (Neo4j Cypher + Qdrant vectors)
-  - `[/]` Implement verifier (anti-hallucination checks)
-  - `[/]` Implement synthesizer
+- `[x]` **Step 6**: Query engine (plan → retrieve → verify → synthesize)
+  - `[x]` Implement query planner
+  - `[x]` Implement hybrid retriever (Neo4j Cypher + Qdrant vectors)
+  - `[x]` Implement verifier (anti-hallucination checks)
+  - `[x]` Implement synthesizer
 - `[ ]` **Step 7**: API routes (query, timeline, graph)
   - `[ ]` Create POST `/api/query` route
   - `[ ]` Create GET `/api/timeline/{topic}` route
