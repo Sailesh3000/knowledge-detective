@@ -35,7 +35,14 @@
   - `[ ]` Implement Chat Panel with streaming answers & citations
   - `[ ]` Implement Decision Timeline View
   - `[ ]` Implement Knowledge Graph Visualization
-- `[ ]` **Step 9**: Polish, testing, demo prep
+- `[ ]` **Step 9**: Real-Time Ingestion Sync Daemon (Gmail/Calendar Pollers + GitHub Webhooks)
+  - `[ ]` Implement sync state management (JSON-based persistence of historyId/syncToken)
+  - `[ ]` Implement incremental Gmail sync poller with query relevance filtering
+  - `[ ]` Implement incremental Calendar sync poller with attendee/calendar filters
+  - `[ ]` Implement GitHub webhook endpoint (`POST /api/webhooks/github`) and polling fallback
+  - `[ ]` Setup `APScheduler` in FastAPI startup events to trigger incremental jobs
+- `[ ]` **Step 10**: Polish, testing, demo prep
   - `[ ]` Write automated smoke/query tests
   - `[ ]` Perform manual scenario testing
   - `[ ]` Prepare/verify pre-cached query responses
+
