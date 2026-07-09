@@ -43,6 +43,54 @@ To ingest all synthetic files under `test-data/` into Qdrant and Neo4j, run:
 docker compose run --rm backend
 ```
 
+### 5. Run the Reasoning Query Engine (Hybrid RAG)
+To run Q&A tests against the ingested data, run:
+```bash
+docker compose run --rm backend python backend/scripts/test_query.py
+```
+
+---
+
+## 🧠 Reasoning Query Engine (Hybrid RAG)
+
+The Query Engine processes natural language questions using a multi-stage pipeline combining semantic search and relationship traversals.
+
+```mermaid
+graph TD
+    User([User Query]) --> Planner[1. Query Planner <br> Ollama / qwen3:8b]
+    
+    Planner -->|Strategy: Vector / Hybrid| VectorRetrieval[2a. Vector Retrieval <br> Qdrant query_points]
+    Planner -->|Strategy: Graph / Hybrid| GraphRetrieval[2b. Graph Retrieval <br> Neo4j Cypher Traversal]
+    
+    VectorRetrieval --> Merge[3. Deduplicate & Merge Context]
+    GraphRetrieval --> Merge
+    
+    Merge --> Verifier[4. Evidence Verifier <br> Ollama / qwen3:8b]
+    Verifier -->|Filter Out Irrelevant Chunks| Synthesizer[5. Answer Synthesizer <br> Ollama / qwen3:8b]
+    
+    Synthesizer -->|Generate Answer with Citations| Output([Cited Answer + Citations Metadata])
+    
+    style User fill:#edf2f7,stroke:#4a5568,stroke-width:2px;
+    style Output fill:#edf2f7,stroke:#4a5568,stroke-width:2px;
+    style Planner fill:#ebf8ff,stroke:#3182ce,stroke-width:2px;
+    style Verifier fill:#ebf8ff,stroke:#3182ce,stroke-width:2px;
+    style Synthesizer fill:#ebf8ff,stroke:#3182ce,stroke-width:2px;
+    style VectorRetrieval fill:#e6fffa,stroke:#319795,stroke-width:2px;
+    style GraphRetrieval fill:#e6fffa,stroke:#319795,stroke-width:2px;
+```
+
+### Flow Breakdown:
+1. **Query Planner**: The LLM decomposes the user question into sub-queries, extracts candidate entities/topics, and decides the query routing strategy:
+   - `vector`: Conceptual information (searches Qdrant).
+   - `graph`: Relational/structural traversals (searches Neo4j).
+   - `hybrid`: Combines both paths.
+2. **Hybrid Retrieval**:
+   - **Vector Path**: Computes text embeddings using local `all-MiniLM-L6-v2` and queries Qdrant via `.query_points()`.
+   - **Graph Path**: Traverses Neo4j for nodes matching the query plan's entities and topics, pulling their corresponding full text chunks.
+3. **Merge & Deduplicate**: Consolidates results based on unique `chunk_id` values.
+4. **Evidence Verifier**: The LLM screens retrieved chunks, dropping irrelevant text blocks to avoid context bloating and hallucination.
+5. **Answer Synthesizer**: The LLM compiles the final user-facing response, embedding inline citations `[Source: Document Title]` linked to source document metadata.
+
 ---
 
 ## 🔍 Exploring the Data
