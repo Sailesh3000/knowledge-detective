@@ -30,11 +30,11 @@
   - `[x]` Create POST `/api/query` route
   - `[x]` Create GET `/api/timeline/{topic}` route
   - `[x]` Create GET `/api/graph/{entity}` route
-- `[ ]` **Step 8**: React frontend (Chat + Timeline + Graph Viz)
-  - `[ ]` Scaffold React + Vite application
-  - `[ ]` Implement Chat Panel with streaming answers & citations
-  - `[ ]` Implement Decision Timeline View
-  - `[ ]` Implement Knowledge Graph Visualization
+- `[x]` **Step 8**: React frontend (Chat + Timeline + Graph Viz)
+  - `[x]` Scaffold React + Vite application
+  - `[x]` Implement Chat Panel with streaming answers & citations
+  - `[x]` Implement Decision Timeline View
+  - `[x]` Implement Knowledge Graph Visualization
 - `[ ]` **Step 9**: Real-Time Ingestion Sync Daemon (Gmail/Calendar Pollers + GitHub Webhooks)
   - `[ ]` Implement sync state management (JSON-based persistence of historyId/syncToken)
   - `[ ]` Implement incremental Gmail sync poller with query relevance filtering
