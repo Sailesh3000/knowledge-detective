@@ -1,6 +1,6 @@
 import uuid
 import logging
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct
 from sentence_transformers import SentenceTransformer
@@ -156,3 +156,58 @@ class Embedder:
         except Exception as e:
             logger.error(f"Failed to delete document chunks from Qdrant: {str(e)}")
             return False
+
+    def fetch_chunks_by_document_id(self, document_id: str) -> List[Dict[str, Any]]:
+        """
+        Retrieves all point payloads associated with a specific document ID.
+        """
+        try:
+            from qdrant_client.http.models import Filter, FieldCondition, MatchValue
+            
+            response = self.qdrant_client.scroll(
+                collection_name=self.collection_name,
+                scroll_filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="document_id",
+                            match=MatchValue(value=document_id)
+                        )
+                    ]
+                ),
+                limit=100,
+                with_payload=True,
+                with_vectors=False
+            )
+            points = response[0]
+            return [p.payload for p in points if p.payload]
+        except Exception as e:
+            logger.error(f"Failed to fetch chunks for document '{document_id}' from Qdrant: {str(e)}")
+            return []
+
+    def search_similar_chunks(self, query_text: str, limit: int = 5) -> List[Dict[str, Any]]:
+        """
+        Searches Qdrant for chunks similar to the query text.
+        Uses query_points (qdrant-client >= 1.18).
+        """
+        try:
+            # Generate embedding
+            query_vector = self.generate_embeddings([query_text])[0]
+            
+            # Search Qdrant using query_points (replaces deprecated .search())
+            results = self.qdrant_client.query_points(
+                collection_name=self.collection_name,
+                query=query_vector,
+                limit=limit
+            )
+            
+            hits = []
+            for point in results.points:
+                payload = point.payload or {}
+                payload["score"] = point.score
+                hits.append(payload)
+            return hits
+        except Exception as e:
+            logger.error(f"Failed to search similar chunks in Qdrant: {str(e)}")
+            return []
+
+
