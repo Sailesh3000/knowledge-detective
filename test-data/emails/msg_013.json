@@ -1,0 +1,12 @@
+{
+  "id": "msg_013",
+  "threadId": "thread_005",
+  "subject": "Re: Security concern on OAuth tokens",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Abhilash SecOps <abhilash@example.com>",
+  "date": "Sat, 20 Jun 2026 07:07:23 +0000",
+  "body": "Yes, done. Both files are safely added to `.gitignore` and won't be pushed. Thanks for checking!",
+  "labelIds": [
+    "SENT"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_018",
+  "threadId": "thread_007",
+  "subject": "Re: Timeline and Graph API design",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Tejas PM <tejas@example.com>, Abhilash SecOps <abhilash@example.com>",
+  "date": "Sat, 04 Jul 2026 06:07:23 +0000",
+  "body": "Yes, the JSON structure will be exactly: `{ 'nodes': [ { 'id': '...', 'label': '...', 'type': '...' } ], 'edges': [ { 'source': '...', 'target': '...', 'type': '...' } ] }`. This is standard for react-force-graph.",
+  "labelIds": [
+    "SENT"
+  ]
+}

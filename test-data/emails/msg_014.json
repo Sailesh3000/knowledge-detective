@@ -1,0 +1,12 @@
+{
+  "id": "msg_014",
+  "threadId": "thread_006",
+  "subject": "Frontend scaffolding: Next.js or React+Vite?",
+  "from": "Tejas PM <tejas@example.com>",
+  "to": "dev-team@example.com",
+  "date": "Fri, 26 Jun 2026 06:07:23 +0000",
+  "body": "Hi team, starting Step 8 soon. Should we use Next.js or React + Vite? Vite is faster to bootstrap and keeps everything client-side, which matches our local-first architecture.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

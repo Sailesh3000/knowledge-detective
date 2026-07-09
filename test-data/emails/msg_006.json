@@ -1,0 +1,12 @@
+{
+  "id": "msg_006",
+  "threadId": "thread_003",
+  "subject": "Vector DB selection",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "dev-team@example.com",
+  "date": "Wed, 10 Jun 2026 06:07:23 +0000",
+  "body": "Hi guys, what are your thoughts on storing vector embeddings? We need to save the chunks created by all-MiniLM-L6-v2. Should we use pgvector or Qdrant?",
+  "labelIds": [
+    "SENT"
+  ]
+}

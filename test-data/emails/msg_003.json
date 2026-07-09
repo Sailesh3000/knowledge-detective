@@ -1,0 +1,12 @@
+{
+  "id": "msg_003",
+  "threadId": "thread_002",
+  "subject": "Architecture choice: Neo4j or PostgreSQL?",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "dev-team@example.com",
+  "date": "Fri, 05 Jun 2026 06:07:23 +0000",
+  "body": "Hi team, as we prepare for Step 2 of the plan, I want to discuss database storage. Since we have to traverse deep relationships (e.g. email authored by a person who commented on a PR referencing a commit that fixed an issue), should we use Neo4j or PostgreSQL? PostgreSQL is familiar, but Neo4j makes graph traversals very easy.",
+  "labelIds": [
+    "SENT"
+  ]
+}

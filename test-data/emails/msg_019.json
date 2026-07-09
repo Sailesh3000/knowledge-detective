@@ -1,0 +1,12 @@
+{
+  "id": "msg_019",
+  "threadId": "thread_008",
+  "subject": "Calendar Sync issues",
+  "from": "Tejas PM <tejas@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>",
+  "date": "Mon, 06 Jul 2026 06:07:23 +0000",
+  "body": "Hi Sailesh, I noticed in our logs that Calendar connector returns a 403 error. Did you verify if the Google Calendar API is enabled in your GCP project settings? Let me know.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

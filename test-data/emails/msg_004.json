@@ -1,0 +1,12 @@
+{
+  "id": "msg_004",
+  "threadId": "thread_002",
+  "subject": "Re: Architecture choice: Neo4j or PostgreSQL?",
+  "from": "Abhilash SecOps <abhilash@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>, dev-team@example.com",
+  "date": "Fri, 05 Jun 2026 08:07:23 +0000",
+  "body": "Hi Sailesh, I support Neo4j. Since we are running it locally in Docker, keeping the structure as a graph will prevent us from writing hundreds of lines of complex SQL loops. Let's document this as ADR-001.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

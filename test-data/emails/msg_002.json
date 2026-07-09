@@ -1,0 +1,12 @@
+{
+  "id": "msg_002",
+  "threadId": "thread_001",
+  "subject": "Re: Kickoff: Knowledge Detective Project",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Tejas PM <tejas@example.com>, dev-team@example.com",
+  "date": "Sat, 30 May 2026 07:07:23 +0000",
+  "body": "Thanks Tejas! Looking forward to it. I'll make sure the docker stack is ready so we can run Neo4j and Qdrant locally. Privacy is key, so local storage is standard.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

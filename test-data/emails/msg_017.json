@@ -1,0 +1,12 @@
+{
+  "id": "msg_017",
+  "threadId": "thread_007",
+  "subject": "Re: Timeline and Graph API design",
+  "from": "Tejas PM <tejas@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>, Abhilash SecOps <abhilash@example.com>",
+  "date": "Fri, 03 Jul 2026 09:07:23 +0000",
+  "body": "Awesome Sailesh. For `/api/graph/{entity}`, can you make sure it returns both nodes and edges? Each node should have a type (Person, Document, Email, Issue, Commit) so I can color-code them.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

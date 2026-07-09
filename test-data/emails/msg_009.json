@@ -1,0 +1,12 @@
+{
+  "id": "msg_009",
+  "threadId": "thread_004",
+  "subject": "Google OAuth Redirect Issues in Docker",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Abhilash SecOps <abhilash@example.com>",
+  "date": "Wed, 17 Jun 2026 06:07:23 +0000",
+  "body": "Hey Abhilash, I am hitting a roadblock testing Google APIs inside Docker. The InstalledAppFlow tries to open a browser inside the container and crashes because it's headless. Any suggestions?",
+  "labelIds": [
+    "SENT"
+  ]
+}

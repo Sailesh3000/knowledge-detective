@@ -25,6 +25,22 @@ services:
       - neo4j_logs:/logs
     restart: unless-stopped
 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    volumes:
+      - .:/workspace
+    environment:
+      - PYTHONPATH=/workspace/backend
+      - QDRANT_HOST=qdrant
+      - NEO4J_URI=bolt://neo4j:7687
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    depends_on:
+      - qdrant
+      - neo4j
+
 volumes:
   qdrant_storage:
   neo4j_data:

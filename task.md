@@ -4,23 +4,23 @@
   - `[x]` Create `docker-compose.yml` for Neo4j & Qdrant
   - `[x]` Initialize `backend/` folder and basic config
   - `[x]` Set up `.env` and `.env.example`
-- `[/]` **Step 2**: All 4 connectors (GitHub, Gmail, Calendar, Local)
+- `[x]` **Step 2**: All 4 connectors (GitHub, Gmail, Calendar, Local)
   - `[x]` Implement Local folder connector
-  - `[ ]` Implement GitHub connector (PyGithub)
-  - `[ ]` Implement Gmail API connector (with OAuth)
-  - `[ ]` Implement Google Calendar API connector (with OAuth)
-- `[ ]` **Step 3**: Generate synthetic test data + create GitHub repo
-  - `[ ]` Write synthetic data generator (`generate_test_data.py`)
-  - `[ ]` Create GitHub repo for the project and push initial codebase/issues/PRs
-- `[ ]` **Step 4**: Ingestion pipeline (chunk → embed → extract → graph) + Watcher
-  - `[ ]` Implement text chunker
-  - `[ ]` Implement embedder (sentence-transformers CPU)
-  - `[ ]` Implement LLM metadata extractor (qwen3:8b)
-  - `[ ]` Implement Neo4j graph builder
-  - `[ ]` Implement background local file watcher daemon (using `watchdog` library)
-- `[ ]` **Step 5**: Ingest test data, verify in Neo4j/Qdrant
-  - `[ ]` Run ingestion pipeline over synthetic test data
-  - `[ ]` Verify node/edge count in Neo4j and vector count in Qdrant
+  - `[x]` Implement GitHub connector (PyGithub)
+  - `[x]` Implement Gmail API connector (with OAuth)
+  - `[x]` Implement Google Calendar API connector (with OAuth)
+- `[x]` **Step 3**: Generate synthetic test data + create GitHub repo
+  - `[x]` Write synthetic data generator (`generate_test_data.py`) to generate mock emails (.json) and meeting notes (.md)
+  - `[x]` Create GitHub repo for the project and push initial codebase/issues/PRs (using `Sailesh3000/knowledge-detective`)
+- `[x]` **Step 4**: Ingestion pipeline (chunk → embed → extract → graph) + Watcher
+  - `[x]` Implement text chunker
+  - `[x]` Implement embedder (sentence-transformers CPU)
+  - `[x]` Implement LLM metadata extractor (qwen3:8b)
+  - `[x]` Implement Neo4j graph builder
+  - `[x]` Implement background local file watcher daemon (using `watchdog` library)
+- `[x]` **Step 5**: Ingest test data, verify in Neo4j/Qdrant
+  - `[x]` Run ingestion pipeline over synthetic test data
+  - `[x]` Verify node/edge count in Neo4j and vector count in Qdrant
 - `[ ]` **Step 6**: Query engine (plan → retrieve → verify → synthesize)
   - `[ ]` Implement query planner
   - `[ ]` Implement hybrid retriever (Neo4j Cypher + Qdrant vectors)

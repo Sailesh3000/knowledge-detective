@@ -1,0 +1,12 @@
+{
+  "id": "msg_008",
+  "threadId": "thread_003",
+  "subject": "Re: Vector DB selection",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Abhilash SecOps <abhilash@example.com>, dev-team@example.com",
+  "date": "Thu, 11 Jun 2026 06:07:23 +0000",
+  "body": "Thanks Abhilash. That makes perfect sense. I will create ADR-002 and add Qdrant to our docker-compose configuration. We will map port 6333.",
+  "labelIds": [
+    "SENT"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_011",
+  "threadId": "thread_004",
+  "subject": "Re: Google OAuth Redirect Issues in Docker",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Abhilash SecOps <abhilash@example.com>",
+  "date": "Fri, 19 Jun 2026 06:07:23 +0000",
+  "body": "That works! I've written a custom server in google_auth.py that intercepts the redirect and overrides the URL mapping. No more invalid_request error. I've also set OAUTHLIB_INSECURE_TRANSPORT = 1 in the environment variables to bypass the HTTPS requirement for localhost.",
+  "labelIds": [
+    "SENT"
+  ]
+}

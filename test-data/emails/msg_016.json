@@ -1,0 +1,12 @@
+{
+  "id": "msg_016",
+  "threadId": "thread_007",
+  "subject": "Timeline and Graph API design",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Tejas PM <tejas@example.com>, Abhilash SecOps <abhilash@example.com>",
+  "date": "Fri, 03 Jul 2026 06:07:23 +0000",
+  "body": "Hi Tejas, Abhilash. I am drafting the REST endpoints for Step 7. I will expose `/api/timeline/{topic}` which returns a chronologically sorted list of document chunks containing references to the topic. I will also expose `/api/graph/{entity}` for the knowledge graph.",
+  "labelIds": [
+    "SENT"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_005",
+  "threadId": "thread_002",
+  "subject": "Re: Architecture choice: Neo4j or PostgreSQL?",
+  "from": "Tejas PM <tejas@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>, dev-team@example.com",
+  "date": "Sat, 06 Jun 2026 06:07:23 +0000",
+  "body": "Agreed! Plus, in the frontend, I'll be using react-force-graph-2d. It expects nodes and relationships directly in JSON, which fits Neo4j perfectly.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_015",
+  "threadId": "thread_006",
+  "subject": "Re: Frontend scaffolding: Next.js or React+Vite?",
+  "from": "Sailesh Architect <sailesh@example.com>",
+  "to": "Tejas PM <tejas@example.com>, dev-team@example.com",
+  "date": "Fri, 26 Jun 2026 08:07:23 +0000",
+  "body": "Hi Tejas, I recommend React + Vite. Since the backend is FastAPI, we don't need SSR (Server Side Rendering). React + Vite is extremely lightweight and loads instantly.",
+  "labelIds": [
+    "SENT"
+  ]
+}

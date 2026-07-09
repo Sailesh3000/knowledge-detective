@@ -1,0 +1,12 @@
+{
+  "id": "msg_010",
+  "threadId": "thread_004",
+  "subject": "Re: Google OAuth Redirect Issues in Docker",
+  "from": "Abhilash SecOps <abhilash@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>",
+  "date": "Thu, 18 Jun 2026 06:07:23 +0000",
+  "body": "Hi Sailesh, Google blocks 0.0.0.0 redirects. We should start a temporary WSGI web server on port `8080` inside the container. We can expose that port in Docker, and the user's host browser will redirect to `localhost:8080`, which Docker forwards inside. Let's document this in ADR-003.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

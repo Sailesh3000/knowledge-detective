@@ -1,0 +1,13 @@
+{
+  "id": "msg_001",
+  "threadId": "thread_001",
+  "subject": "Kickoff: Knowledge Detective Project",
+  "from": "Tejas PM <tejas@example.com>",
+  "to": "dev-team@example.com",
+  "date": "Sat, 30 May 2026 06:07:23 +0000",
+  "body": "Hi team, I am super excited to launch our new internal RAG tool: Knowledge Detective! The goal is to index and search across local files, emails, calendar invites, and GitHub issues. Let's make sure we meet today for the kickoff meeting.",
+  "labelIds": [
+    "INBOX",
+    "UNREAD"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_012",
+  "threadId": "thread_005",
+  "subject": "Security concern on OAuth tokens",
+  "from": "Abhilash SecOps <abhilash@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>",
+  "date": "Sat, 20 Jun 2026 06:07:23 +0000",
+  "body": "Hi Sailesh, make sure `token.json` and `credentials.json` are added to `.gitignore`. They contain highly sensitive refresh tokens for access to Gmail and Calendar. We cannot push them to the public GitHub repo.",
+  "labelIds": [
+    "INBOX"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "msg_007",
+  "threadId": "thread_003",
+  "subject": "Re: Vector DB selection",
+  "from": "Abhilash SecOps <abhilash@example.com>",
+  "to": "Sailesh Architect <sailesh@example.com>, dev-team@example.com",
+  "date": "Wed, 10 Jun 2026 10:07:23 +0000",
+  "body": "I suggest Qdrant. It's written in Rust, super fast, and has a great REST API. Running it in Docker is simple and lightweight. pgvector would require maintaining a Postgres database, which we don't currently need.",
+  "labelIds": [
+    "INBOX"
+  ]
+}
