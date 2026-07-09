@@ -14,16 +14,17 @@ def parse_node(node) -> Dict[str, Any]:
     labels = list(node.labels)
     primary_label = labels[0] if labels else "Unknown"
     
-    # Determine the unique ID and clean label/name
-    if "Person" in labels:
-        node_id = node.get("name", "Unknown")
-        label = node.get("name", "Unknown")
-    elif "Technology" in labels or "Topic" in labels:
-        node_id = node.get("name", "Unknown")
-        label = node.get("name", "Unknown")
-    else: # Document types (Doc, Email, Meeting, Commit, Issue)
+    # Check for name (used by Person, Topic, Technology, and Doc entities)
+    if "name" in node:
+        node_id = node["name"]
+        label = node["name"]
+    # Check for title/id (used by primary Document / source nodes)
+    elif "title" in node:
         node_id = node.get("id", str(node.element_id))
-        label = node.get("title", node_id)
+        label = node["title"]
+    else:
+        node_id = node.get("id", str(node.element_id))
+        label = node_id
         
     return {
         "id": node_id,
