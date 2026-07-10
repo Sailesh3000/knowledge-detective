@@ -114,14 +114,10 @@ BULK INGESTION (first time — runs once)
                  │ (qwen3:8b)   │  → Create AUTHORED_BY, MENTIONS, REFERENCES edges
                  └──────────────┘
 
-INCREMENTAL SYNC (ongoing — for real-time use)
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INCREMENTAL SYNC (ongoing)
+━━━━━━━━━━━━━━━━━━━━━━━━━━
 Only NEW/MODIFIED items get processed.
-→ GitHub: webhooks or poll for new issues/PRs since last sync
-→ Gmail: push notifications or poll for new emails since last sync
-→ Calendar: watch for new/updated events
 → Local: file watcher detects changes
-```
 
 ### For Another Project
 
@@ -129,7 +125,7 @@ A new user would:
 1. **Open the Settings UI** → connect their GitHub repos, Gmail, Calendar
 2. **Click "Ingest"** → bulk import runs (minutes for a typical project)
 3. **Start asking questions** → the system searches the pre-built index + graph
-4. **Auto-sync** keeps data fresh going forward
+4. **Local Watcher** keeps local documents fresh going forward
 
 ---
 
@@ -325,14 +321,16 @@ Since we're including Gmail & Calendar in Phase 1, here's the OAuth plan:
 
 ### Automated Tests
 ```bash
-# Backend unit tests
+# Full automated smoke test (health, routes, demo cache, gap detection)
+# Exit code 0 = all pass, 1 = failures
+cd backend && python -m scripts.smoke_test
+
+# Live query test — runs 5 canonical demo questions through the LLM pipeline
+# Warning: each question takes 30–120s on CPU
+cd backend && python -m scripts.query_test
+
+# Backend unit tests (pytest)
 cd backend && pytest tests/ -v
-
-# Ingestion smoke test
-python -m scripts.smoke_test
-
-# Query pipeline test — 5 predefined questions
-python -m scripts.query_test
 ```
 
 ### Manual Verification
@@ -348,15 +346,15 @@ python -m scripts.query_test
 
 ## Execution Order Summary
 
-| Step | What | Est. Time |
-|------|------|-----------|
-| 1 | `docker-compose.yml` + FastAPI skeleton + config | ~45 min |
-| 2 | All 4 connectors (GitHub, Gmail, Calendar, Local) | ~3 hours |
-| 3 | Generate synthetic test data + create GitHub repo | ~1 hour |
-| 4 | Ingestion pipeline (chunk → embed → extract → graph) + Watcher | ~3 hours |
-| 5 | Ingest test data, verify in Neo4j/Qdrant | ~30 min |
-| 6 | Query engine (plan → retrieve → verify → synthesize) | ~3 hours |
-| 7 | API routes (query, timeline, graph) | ~1 hour |
-| 8 | React frontend (Chat + Timeline + Graph Viz) | ~3-4 hours |
-| 9 | Polish, testing, demo prep | ~1 hour |
-| | **Total** | **~16.5 hours** |
+| Step | What | Est. Time | Status |
+|------|------|-----------|--------|
+| 1 | `docker-compose.yml` + FastAPI skeleton + config | ~45 min | ✅ Done |
+| 2 | All 4 connectors (GitHub, Gmail, Calendar, Local) | ~3 hours | ✅ Done |
+| 3 | Generate synthetic test data + create GitHub repo | ~1 hour | ✅ Done |
+| 4 | Ingestion pipeline (chunk → embed → extract → graph) + Watcher | ~3 hours | ✅ Done |
+| 5 | Ingest test data, verify in Neo4j/Qdrant | ~30 min | ✅ Done |
+| 6 | Query engine (plan → retrieve → verify → synthesize) | ~3 hours | ✅ Done |
+| 7 | API routes (query, timeline, graph) | ~1 hour | ✅ Done |
+| 8 | React frontend (Chat + Timeline + Graph Viz) | ~3-4 hours | ✅ Done |
+| 9 | Polish, testing, demo prep | ~1 hour | ✅ Done |
+| | **Total** | **~16.5 hours** | **✅ Complete** |

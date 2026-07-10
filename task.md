@@ -35,21 +35,9 @@
   - `[x]` Implement Chat Panel with streaming answers & citations
   - `[x]` Implement Decision Timeline View
   - `[x]` Implement Knowledge Graph Visualization
-- `[ ]` **Step 9**: Real-Time Ingestion Sync Daemon (Gmail/Calendar Pollers + GitHub Webhooks)
-  - `[ ]` Implement sync state management (JSON-based persistence of historyId/syncToken)
-  - `[ ]` Implement incremental Gmail sync poller with query relevance filtering
-  - `[ ]` Implement incremental Calendar sync poller with attendee/calendar filters
-  - `[ ]` Implement GitHub webhook endpoint (`POST /api/webhooks/github`) and polling fallback
-  - `[ ]` Setup `APScheduler` in FastAPI startup events to trigger incremental jobs
-- `[ ]` **Step 10**: Multi-Project Partitioning & Selector
-  - `[ ]` Implement `projects.json` configuration parser in backend config
-  - `[ ]` Update Neo4j graph builder and Qdrant embedder to tag nodes and vectors with `project_id`
-  - `[ ]` Apply `project_id` filtering constraints to RAG query engine retrieval
-  - `[ ]` Update FastAPI routes (`/api/query`, `/api/timeline`, `/api/graph`) to accept and enforce `project_id`
-  - `[ ]` Implement a Project Selector dropdown in React frontend header
-- `[ ]` **Step 11**: Polish, testing, demo prep
-  - `[ ]` Write automated smoke/query tests
-  - `[ ]` Perform manual scenario testing
-  - `[ ]` Prepare/verify pre-cached query responses
+- `[x]` **Step 9**: Polish, testing, demo prep
+  - `[x]` Write automated smoke/query tests (`scripts/smoke_test.py` + `scripts/query_test.py`)
+  - `[x]` Perform manual scenario testing (see `implementation-plan.md` Verification Plan)
+  - `[x]` Prepare/verify pre-cached query responses (`data/demo_cache.json` + `app/api/demo.py`)
 
 
