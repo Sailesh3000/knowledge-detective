@@ -45,7 +45,7 @@ def health_check():
         "status": "healthy",
         "project": settings.PROJECT_NAME,
         "config": {
-            "ollama_model": settings.OLLAMA_MODEL,
+            "fireworks_model": settings.FIREWORKS_MODEL,
             "qdrant_host": settings.QDRANT_HOST,
             "neo4j_uri": settings.NEO4J_URI
         }

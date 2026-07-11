@@ -1,8 +1,8 @@
 import logging
-import requests
 from typing import List, Dict, Any, Tuple
 
 from app.config import settings
+from app.llm_client import llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +13,11 @@ class AnswerSynthesizer:
     """
 
     def __init__(self):
-        self.ollama_url = f"{settings.OLLAMA_BASE_URL}/api/generate"
-        self.model = settings.OLLAMA_MODEL
+        pass
 
     def synthesize(self, question: str, verified_chunks: List[Dict[str, Any]]) -> Tuple[str, List[Dict[str, Any]]]:
         """
-        Queries Ollama to synthesize the final answer with inline citations.
+        Queries Fireworks AI to synthesize the final answer with inline citations.
         Returns a tuple of (synthesized_answer, unique_citations_metadata).
         """
         if not verified_chunks:
@@ -76,30 +75,21 @@ Verified Context:
 \"\"\"
 
 Strict Guidelines:
-1. **Fact-based Only**: Rely only on clear facts directly mentioned in the verified context. Do NOT assume, extrapolate, or hallucinate.
+1. **Fact-based Only**: Rely only on facts directly mentioned in the verified context. Do NOT assume, extrapolate, or hallucinate.
 2. **Inline Citations**: Every claim or fact you mention MUST be followed by an inline citation to its source document title in the exact format: `[Source: Document Title]`.
 3. **No Fabrication**: If the context does not contain enough information to fully answer the question, state exactly what is missing rather than making up answers.
 4. **Tone**: Be professional, objective, and analytical.
 
 Answer:
 """
-        payload = {
-            "model": self.model,
-            "prompt": prompt,
-            "stream": False,
-            "options": {
-                "temperature": 0.2, # slightly low temperature for factuality
-                "seed": 42
-            }
-        }
-
         try:
-            logger.info("Synthesizing final answer with Ollama...")
-            response = requests.post(self.ollama_url, json=payload, timeout=180.0)
-            response.raise_for_status()
-            
-            result_json = response.json()
-            answer = result_json.get("response", "").strip()
+            logger.info("Synthesizing final answer with Fireworks AI...")
+            answer = llm_client.generate(
+                prompt=prompt,
+                system_instruction="You are Knowledge Detective, an advanced enterprise RAG reasoning agent.",
+                json_format=False,
+                temperature=0.2
+            )
             
             # Collect list of citations that were actually mentioned in the text
             active_citations = []
@@ -115,8 +105,9 @@ Answer:
             return answer, active_citations
 
         except Exception as e:
-            logger.error(f"Failed to synthesize answer: {str(e)}")
+            logger.error(f"Failed to synthesize answer via Fireworks AI: {str(e)}")
             return (
                 "Error: Failed to synthesize an answer due to an internal LLM connection issue.",
                 []
             )
+

@@ -1,8 +1,8 @@
 import json
 import logging
-import requests
 from typing import List, Dict, Any
 from app.config import settings
+from app.llm_client import llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +13,11 @@ class EvidenceVerifier:
     """
 
     def __init__(self):
-        self.ollama_url = f"{settings.OLLAMA_BASE_URL}/api/generate"
-        self.model = settings.OLLAMA_MODEL
+        pass
 
     def verify_evidence(self, question: str, chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """
-        Queries Ollama to filter and verify the factual relevance of retrieved chunks.
+        Queries Fireworks AI to filter and verify the factual relevance of retrieved chunks.
         """
         if not chunks:
             return []
@@ -59,30 +58,21 @@ Expected Output Format:
   "verified_chunk_ids": ["chunk_id_1", "chunk_id_2"]
 }}
 """
-        payload = {
-            "model": self.model,
-            "prompt": prompt,
-            "stream": False,
-            "format": "json",
-            "options": {
-                "temperature": 0.0,
-                "seed": 42
-            }
-        }
-
         # Fallback: if verifier fails, keep all chunks rather than returning nothing
         fallback_result = chunks
+        response_text = ""
 
         try:
-            logger.info(f"Verifying {len(chunks)} evidence chunks using Ollama...")
-            response = requests.post(self.ollama_url, json=payload, timeout=120.0)
-            response.raise_for_status()
-            
-            result_json = response.json()
-            response_text = result_json.get("response", "").strip()
+            logger.info(f"Verifying {len(chunks)} evidence chunks using Fireworks AI...")
+            response_text = llm_client.generate(
+                prompt=prompt,
+                system_instruction="You are a precise Fact-Checking and Evidence Verification assistant.",
+                json_format=True,
+                temperature=0.0
+            )
             
             if not response_text:
-                logger.warning("Ollama returned an empty verification response. Falling back to all chunks.")
+                logger.warning("Fireworks AI returned an empty verification response. Falling back to all chunks.")
                 return fallback_result
 
             # Clean potential markdown packaging if present
@@ -98,7 +88,7 @@ Expected Output Format:
             verified_ids = data.get("verified_chunk_ids", [])
             
             if not verified_ids:
-                logger.warning("Ollama verified 0 chunks. Using all retrieved chunks to be safe.")
+                logger.warning("Fireworks AI verified 0 chunks. Using all retrieved chunks to be safe.")
                 return chunks
 
             verified_chunks = [c for c in chunks if c.get("chunk_id") in verified_ids]
@@ -112,5 +102,8 @@ Expected Output Format:
             return verified_chunks
 
         except Exception as e:
-            logger.error(f"Failed to verify evidence: {str(e)}. Proceeding with all chunks.")
+            logger.error(f"Failed to verify evidence via Fireworks AI: {str(e)}. Proceeding with all chunks.")
+            if response_text:
+                logger.error(f"Response text was: {response_text}")
             return fallback_result
+

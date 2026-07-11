@@ -6,9 +6,10 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = "Knowledge Detective API"
     DEBUG: bool = True
 
-    # Ollama
-    OLLAMA_BASE_URL: str = "http://localhost:11434"
-    OLLAMA_MODEL: str = "qwen3:8b"
+    # Fireworks AI
+    FIREWORKS_API_KEY: str = ""
+    FIREWORKS_BASE_URL: str = "https://api.fireworks.ai/inference/v1"
+    FIREWORKS_MODEL: str = "accounts/fireworks/models/qwen2p5-72b-instruct"
 
     # Qdrant
     QDRANT_HOST: str = "localhost"

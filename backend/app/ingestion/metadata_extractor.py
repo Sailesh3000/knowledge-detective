@@ -1,23 +1,22 @@
 import json
 import logging
-import requests
 from typing import Dict, List, Any
 from app.config import settings
+from app.llm_client import llm_client
 
 logger = logging.getLogger(__name__)
 
 class MetadataExtractor:
     """
-    Extracts semantic entities and relationships from text chunks using Ollama (qwen3:8b).
+    Extracts semantic entities and relationships from text chunks using Fireworks AI.
     """
 
     def __init__(self):
-        self.ollama_url = f"{settings.OLLAMA_BASE_URL}/api/generate"
-        self.model = settings.OLLAMA_MODEL
+        pass
 
     def extract_metadata(self, content: str, title: str, source: str, author: str) -> Dict[str, Any]:
         """
-        Queries the local Ollama LLM to extract Person, Technology, Topic entities 
+        Queries Fireworks AI to extract Person, Technology, Topic entities 
         and their relationships from a text chunk.
         """
         prompt = f"""You are a precise knowledge graph extraction system.
@@ -61,30 +60,20 @@ Expected Output Format:
   ]
 }}
 """
-        payload = {
-            "model": self.model,
-            "prompt": prompt,
-            "stream": False,
-            "format": "json",
-            "options": {
-                "temperature": 0.0,
-                "seed": 42
-            }
-        }
-
         fallback_result = {"entities": [], "relationships": []}
+        response_text = ""
 
         try:
-            logger.info(f"Extracting metadata using Ollama model '{self.model}'...")
-            # Set a generous 30s timeout because CPU Ollama inference can take time
-            response = requests.post(self.ollama_url, json=payload, timeout=45.0)
-            response.raise_for_status()
-            
-            result_json = response.json()
-            response_text = result_json.get("response", "").strip()
+            logger.info("Extracting metadata using Fireworks AI...")
+            response_text = llm_client.generate(
+                prompt=prompt,
+                system_instruction="You are a precise knowledge graph extraction system.",
+                json_format=True,
+                temperature=0.0
+            )
             
             if not response_text:
-                logger.warning("Ollama returned an empty response text.")
+                logger.warning("Fireworks AI returned an empty response text.")
                 return fallback_result
 
             # Clean potential markdown packaging if present
@@ -122,18 +111,15 @@ Expected Output Format:
                     if r["type"] in ["AUTHORED_BY", "MENTIONS", "REFERENCES", "ATTENDED_BY"]:
                         valid_relationships.append(r)
                         
-            logger.info(f"Ollama successfully extracted {len(valid_entities)} entities and {len(valid_relationships)} relationships.")
+            logger.info(f"Fireworks AI successfully extracted {len(valid_entities)} entities and {len(valid_relationships)} relationships.")
             return {
                 "entities": valid_entities,
                 "relationships": valid_relationships
             }
 
-        except requests.exceptions.RequestException as req_err:
-            logger.error(f"Ollama API request failed (is Ollama running?): {str(req_err)}")
-            return fallback_result
-        except json.JSONDecodeError as json_err:
-            logger.error(f"Failed to parse JSON response from Ollama: {str(json_err)}. Response text was: {response_text}")
-            return fallback_result
         except Exception as e:
-            logger.error(f"Unexpected error in metadata extraction: {str(e)}")
+            logger.error(f"Error in metadata extraction via Fireworks AI: {str(e)}")
+            if response_text:
+                logger.error(f"Response text was: {response_text}")
             return fallback_result
+

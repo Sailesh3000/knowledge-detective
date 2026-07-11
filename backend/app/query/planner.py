@@ -1,8 +1,8 @@
 import json
 import logging
-import requests
 from typing import Dict, List, Any
 from app.config import settings
+from app.llm_client import llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -13,12 +13,11 @@ class QueryPlanner:
     """
 
     def __init__(self):
-        self.ollama_url = f"{settings.OLLAMA_BASE_URL}/api/generate"
-        self.model = settings.OLLAMA_MODEL
+        pass
 
     def plan_query(self, question: str) -> Dict[str, Any]:
         """
-        Queries Ollama to generate a structured query plan in JSON.
+        Queries Fireworks AI to generate a structured query plan in JSON.
         """
         prompt = f"""You are the Query Planner for a hybrid knowledge retrieval system (vector + graph databases).
 Your task is to analyze the user's question, identify key entities/topics, and decompose it into simple sub-queries.
@@ -46,34 +45,25 @@ Expected Output Format:
   "topics": ["TopicName"]
 }}
 """
-        payload = {
-            "model": self.model,
-            "prompt": prompt,
-            "stream": False,
-            "format": "json",
-            "options": {
-                "temperature": 0.0,
-                "seed": 42
-            }
-        }
-
         fallback_plan = {
             "sub_queries": [question],
             "search_type": "hybrid",
             "entities": [],
             "topics": []
         }
+        response_text = ""
 
         try:
-            logger.info(f"Planning query using Ollama model '{self.model}'...")
-            response = requests.post(self.ollama_url, json=payload, timeout=60.0)
-            response.raise_for_status()
-            
-            result_json = response.json()
-            response_text = result_json.get("response", "").strip()
+            logger.info("Planning query using Fireworks AI...")
+            response_text = llm_client.generate(
+                prompt=prompt,
+                system_instruction="You are the Query Planner for a hybrid knowledge retrieval system (vector + graph databases).",
+                json_format=True,
+                temperature=0.0
+            )
             
             if not response_text:
-                logger.warning("Ollama returned an empty query plan.")
+                logger.warning("Fireworks AI returned an empty query plan.")
                 return fallback_plan
 
             # Clean potential markdown packaging if present
@@ -102,5 +92,8 @@ Expected Output Format:
             return plan
 
         except Exception as e:
-            logger.error(f"Failed to generate query plan: {str(e)}")
+            logger.error(f"Failed to generate query plan via Fireworks AI: {str(e)}")
+            if response_text:
+                logger.error(f"Response text was: {response_text}")
             return fallback_plan
+
