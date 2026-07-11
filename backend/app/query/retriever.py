@@ -45,6 +45,10 @@ class HybridRetriever:
                 for item in entities + topics:
                     logger.info(f"Searching graph for entity/topic mentions: '{item}'...")
                     query = """
+                    MATCH (d:Document)
+                    WHERE toLower(d.title) CONTAINS toLower($search_term)
+                    RETURN d.id as doc_id
+                    UNION
                     MATCH (d:Document)-[:MENTIONS]->(e)
                     WHERE toLower(e.name) CONTAINS toLower($search_term)
                     RETURN d.id as doc_id

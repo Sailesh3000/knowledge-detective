@@ -79,10 +79,10 @@ Expected Output Format:
             
             # Simple validation of plan
             plan = {
-                "sub_queries": data.get("sub_queries", [question]),
-                "search_type": data.get("search_type", "hybrid").lower(),
-                "entities": data.get("entities", []),
-                "topics": data.get("topics", [])
+                "sub_queries": data.get("sub_queries") or [question],
+                "search_type": (data.get("search_type") or "hybrid").lower(),
+                "entities": data.get("entities") or [],
+                "topics": data.get("topics") or []
             }
             
             if plan["search_type"] not in ["vector", "graph", "hybrid"]:

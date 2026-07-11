@@ -5,7 +5,6 @@ class Settings(BaseSettings):
     # App Settings
     PROJECT_NAME: str = "Knowledge Detective API"
     DEBUG: bool = True
-
     # Fireworks AI
     FIREWORKS_API_KEY: str = ""
     FIREWORKS_BASE_URL: str = "https://api.fireworks.ai/inference/v1"

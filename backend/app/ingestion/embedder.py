@@ -166,3 +166,49 @@ class Embedder:
         except Exception as e:
             logger.error(f"Failed to delete document chunks from Qdrant: {str(e)}")
             return False
+
+    def search_similar_chunks(self, query: str, limit: int = 5) -> List[Dict[str, Any]]:
+        """
+        Searches Qdrant for chunks semantically similar to the query.
+        """
+        try:
+            query_vector = self.generate_embeddings([query])[0]
+            hits = self.qdrant_client.search(
+                collection_name=self.collection_name,
+                query_vector=query_vector,
+                limit=limit
+            )
+            results = []
+            for hit in hits:
+                if hit.payload:
+                    payload = hit.payload.copy()
+                    payload["score"] = hit.score
+                    results.append(payload)
+            return results
+        except Exception as e:
+            logger.error(f"Failed to search similar chunks: {str(e)}")
+            return []
+
+    def fetch_chunks_by_document_id(self, document_id: str) -> List[Dict[str, Any]]:
+        """
+        Fetches all chunks from Qdrant belonging to a specific document ID.
+        """
+        try:
+            # pyrefly: ignore [missing-import]
+            from qdrant_client.http.models import Filter, FieldCondition, MatchValue
+            hits, _ = self.qdrant_client.scroll(
+                collection_name=self.collection_name,
+                scroll_filter=Filter(
+                    must=[
+                        FieldCondition(
+                            key="document_id",
+                            match=MatchValue(value=document_id)
+                        )
+                    ]
+                ),
+                limit=100
+            )
+            return [hit.payload for hit in hits if hit.payload]
+        except Exception as e:
+            logger.error(f"Failed to fetch chunks by document ID: {str(e)}")
+            return []
