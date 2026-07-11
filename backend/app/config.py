@@ -9,7 +9,7 @@ class Settings(BaseSettings):
     # Fireworks AI
     FIREWORKS_API_KEY: str = ""
     FIREWORKS_BASE_URL: str = "https://api.fireworks.ai/inference/v1"
-    FIREWORKS_MODEL: str = "accounts/fireworks/models/qwen2p5-72b-instruct"
+    FIREWORKS_MODEL: str = "accounts/fireworks/models/deepseek-v4-pro"
 
     # Qdrant
     QDRANT_HOST: str = "localhost"
